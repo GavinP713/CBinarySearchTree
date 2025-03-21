@@ -12,9 +12,11 @@ Tree::~Tree() {
 }
 
 void Tree::insert(int value) {
+  // insert head
   if (head == nullptr) {
     head = new Node(value);
   }
+  // insert leaf
   else {
     Node* current = head;
     
@@ -52,7 +54,11 @@ void Tree::remove(int value) {
   Node* node = search(value);
   
   if (node != nullptr) {
+    cout << "found : deleting!" << endl;
     delete node;
+  }
+  else {
+    cout << "couldnt find" << endl;
   }
 }
 
@@ -61,7 +67,7 @@ Node* Tree::search(int value) {
   Node* node = head;
 
   // loop until value is found
-  while (node->value != value || node == nullptr) {
+  while (node->value != value || node != nullptr) {
     // found
     if (value == node->value) {
       return node;
