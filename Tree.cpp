@@ -8,13 +8,15 @@ Tree::Tree() {
 }
 
 Tree::~Tree() {
-
+  while (head != nullptr) {
+    delete head;
+  }
 }
 
 void Tree::insert(int value) {
   // insert head
   if (head == nullptr) {
-    head = new Node(value);
+    head = new Node(value, nullptr);
   }
   // insert leaf
   else {
@@ -26,7 +28,7 @@ void Tree::insert(int value) {
       if (value < current->value) {
 	// insert (reached a leaf)
 	if (current->left == nullptr) {
-	  current->left = new Node(value);
+	  current->left = new Node(value, current);
 	  return;
 	}
 	// continue
@@ -38,7 +40,7 @@ void Tree::insert(int value) {
       else {
 	// insert (reached a leaf)
 	if (current->right == nullptr) {
-	  current->right = new Node(value);
+	  current->right = new Node(value, current);
 	  return;
 	}
 	// continue
@@ -54,16 +56,11 @@ void Tree::remove(int value) {
   Node* node = search(value);
   
   if (node != nullptr) {
-    cout << "found : deleting!" << endl;
     delete node;
-  }
-  else {
-    cout << "couldnt find" << endl;
   }
 }
 
 Node* Tree::search(int value) {
-  cout << "search" << endl;
   Node* node = head;
 
   // loop until value is found
@@ -80,8 +77,6 @@ Node* Tree::search(int value) {
     else if (value > node->value) {
       node = node->right;
     }
-
-    cout << "loop" << endl;
   }
 
   // if not found return null (doesnt exist)

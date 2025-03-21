@@ -1,7 +1,7 @@
 #include "Node.h"
 
-Node::Node(int _value) {
-  parent = nullptr;
+Node::Node(int _value, Node* _parent) {
+  parent = _parent;
   left = nullptr;
   right = nullptr;
   value = _value;
@@ -19,6 +19,8 @@ Node::~Node() {
 
     // replace
     value = node->value;
+
+    // delete leaf
     delete node;
   }
   // one left child

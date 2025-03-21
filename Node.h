@@ -3,7 +3,7 @@
 
 class Node {
  public:
-  Node(int value);
+  Node(int value, Node* _parent);
   ~Node();
   Node* parent;
   Node* left;
