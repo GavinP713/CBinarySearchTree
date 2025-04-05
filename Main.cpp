@@ -12,10 +12,20 @@ int main() {
   tree->insert(1);
   tree->insert(12);
   printTree(tree, tree->head, 0);
+  cout << endl;
+
 
   cout << "remove" << endl;
   tree->remove(12);
   printTree(tree, tree->head, 0);
+  cout << endl;
+  
+
+  cout << "remove" << endl;
+  tree->remove(5);
+  printTree(tree, tree->head, 0);
+  cout << endl;
+
   
   return 0;
 }
