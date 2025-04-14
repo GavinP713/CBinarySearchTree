@@ -5,7 +5,9 @@ using namespace std;
 void printTree(Tree* tree, Node* node, int depth);
 
 int main() {
+  cout << "creating tree" << endl;
   Tree* tree = new Tree();
+  cout<< "inserting" << endl;
   tree->insert(5);
   tree->insert(2);
   tree->insert(7);
@@ -15,13 +17,13 @@ int main() {
   cout << endl;
 
 
-  cout << "remove" << endl;
+  cout << "remove 1" << endl;
   tree->remove(12);
   printTree(tree, tree->head, 0);
   cout << endl;
   
 
-  cout << "remove" << endl;
+  cout << "remove 2" << endl;
   tree->remove(5);
   printTree(tree, tree->head, 0);
   cout << endl;
