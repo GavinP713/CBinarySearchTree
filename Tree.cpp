@@ -51,86 +51,88 @@ void Tree::insert(int value) {
 }
 
 void Tree::remove(int value) {
-  cout << "remove" << endl;
+  cout << "remove(" << value << ")" << endl;
   // locate node
   Node* targetNode = search(value);
 
+  //  if (targetNode == nullptr) return;
+  
   // quick references for convenience
   Node* parent = targetNode->parent;
   Node* left = targetNode->left;
   Node* right = targetNode->right;
 
   // both children
-  // !!!! problem !!!!! (LOTS of recursion, finds same value each recursion)
-  //            only does this single if statment
   if (left != nullptr && right != nullptr) {
-    cout << "both" << endl;
+    cout << " both children" << endl;
     Node* node = right;
 
-    cout << "    - " << node->value;
     // search subtree for min
+    cout << "  search subtree for min" << endl;
     while (node->left != nullptr) {
-      cout << "    - " << node->value;
       node = node->left;
     }
 
     // replace
-    targetNode->value = node->value;
-    remove(node->value); // does another search loop which is ineffecient but im lazy
+    int nodeValue = node->value;
+    remove(nodeValue); // does another search loop (ineffecient)
+    targetNode->value = nodeValue;
   }
   // one left child
   else if (left != nullptr) {
-    cout << "left" << endl;
+    cout << " left child" << endl;
     // link child to parent
     if (parent->left == targetNode) parent->left = left;
     else parent->right = left;
   }
   // one right child
   else if (right != nullptr) {
-    cout << "right" << endl;
+    cout << " right child" << endl;
     // link child to parent
     if (parent->left == targetNode) parent->left = right;
     else parent->right = right;
   }
   // no children
   else {
-    cout << "none" << endl;
+    cout << " no children" << endl;
     // unlink child to parent
     if (parent->left == targetNode) parent->left = nullptr;
     else parent->right = nullptr;
   }
 
   delete targetNode;
-  
-  // Node* node = search(value);
-  
-  // if (node != nullptr) {
-  //   delete node;
-  // }
 }
 
 Node* Tree::search(int value) {
-  cout << "search" << endl;
+  cout << "search(" << value << ")" << endl;
   Node* node = head;
 
   // loop until value is found
-  while (node->value != value || node != nullptr) {
+  while (true) {
+    cout << " node: " << node->value << endl;
+    
+    // could not find (reached a leaf)
+    if (node == nullptr) {
+      cout << "Could not find value!" << endl;
+      break;
+    }
     // found
-    if (value == node->value) {
+    else if (value == node->value) {
       cout << "Found " << value << endl;
       return node;
     }
     // go left (value is lower)
     else if (value < node->value) {
+      cout << "  go left" << endl;
       node = node->left;
     }
     // go right (value is higher)
     else if (value > node->value) {
+      cout << "  go right" << endl;
       node = node->right;
     }
   }
 
-  // if not found return null (doesnt exist)
-  cout << "Could not find value!" << endl;
+  cout << "exit return" << endl;
   return nullptr;
 }
