@@ -61,6 +61,9 @@ void Tree::remove(int value) {
   Node* parent = targetNode->parent;
   Node* left = targetNode->left;
   Node* right = targetNode->right;
+  cout<<"Parent: "<<parent<<endl;
+  cout<<"Left: "<<left<<endl;
+  cout<<"Right: "<<right<<endl;
 
   // both children
   if (left != nullptr && right != nullptr) {
@@ -77,6 +80,8 @@ void Tree::remove(int value) {
     int nodeValue = node->value;
     remove(nodeValue); // does another search loop (ineffecient)
     targetNode->value = nodeValue;
+    cout << head->value << endl;
+    if (targetNode == head) return;
   }
   // one left child
   else if (left != nullptr) {
@@ -95,6 +100,10 @@ void Tree::remove(int value) {
   // no children
   else {
     cout << " no children" << endl;
+    cout<<"Parent: "<<parent<<endl;
+    cout<<"Left: "<<left<<endl;
+    cout<<"Right: "<<right<<endl;
+    cout<<"Pain"<<targetNode<<endl;
     // unlink child to parent
     if (parent->left == targetNode) parent->left = nullptr;
     else parent->right = nullptr;
