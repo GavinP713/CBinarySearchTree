@@ -51,27 +51,23 @@ void Tree::insert(int value) {
 }
 
 void Tree::remove(int value) {
-  cout << "remove(" << value << ")" << endl;
+  //  cout << "remove(" << value << ")" << endl;
+  
   // locate node
   Node* targetNode = search(value);
-
-  //  if (targetNode == nullptr) return;
   
   // quick references for convenience
   Node* parent = targetNode->parent;
   Node* left = targetNode->left;
   Node* right = targetNode->right;
-  cout<<"Parent: "<<parent<<endl;
-  cout<<"Left: "<<left<<endl;
-  cout<<"Right: "<<right<<endl;
 
   // both children
   if (left != nullptr && right != nullptr) {
-    cout << " both children" << endl;
+    //    cout << " both children" << endl;
     Node* node = right;
 
     // search subtree for min
-    cout << "  search subtree for min" << endl;
+    //    cout << "  search subtree for min" << endl;
     while (node->left != nullptr) {
       node = node->left;
     }
@@ -80,46 +76,38 @@ void Tree::remove(int value) {
     int nodeValue = node->value;
     remove(nodeValue); // does another search loop (ineffecient)
     targetNode->value = nodeValue;
-    cout << head->value << endl;
-    if (targetNode == head) return;
   }
   // one left child
   else if (left != nullptr) {
-    cout << " left child" << endl;
+    //    cout << " left child" << endl;
     // link child to parent
     if (parent->left == targetNode) parent->left = left;
     else parent->right = left;
+    delete targetNode;
   }
   // one right child
   else if (right != nullptr) {
-    cout << " right child" << endl;
+    //cout << " right child" << endl;
     // link child to parent
     if (parent->left == targetNode) parent->left = right;
     else parent->right = right;
+    delete targetNode;
   }
   // no children
   else {
-    cout << " no children" << endl;
-    cout<<"Parent: "<<parent<<endl;
-    cout<<"Left: "<<left<<endl;
-    cout<<"Right: "<<right<<endl;
-    cout<<"Pain"<<targetNode<<endl;
     // unlink child to parent
     if (parent->left == targetNode) parent->left = nullptr;
     else parent->right = nullptr;
+    delete targetNode;
   }
-
-  delete targetNode;
 }
 
 Node* Tree::search(int value) {
-  cout << "search(" << value << ")" << endl;
+  //  cout << "search(" << value << ")" << endl;
   Node* node = head;
 
   // loop until value is found
   while (true) {
-    cout << " node: " << node->value << endl;
-    
     // could not find (reached a leaf)
     if (node == nullptr) {
       cout << "Could not find value!" << endl;
@@ -132,12 +120,10 @@ Node* Tree::search(int value) {
     }
     // go left (value is lower)
     else if (value < node->value) {
-      cout << "  go left" << endl;
       node = node->left;
     }
     // go right (value is higher)
     else if (value > node->value) {
-      cout << "  go right" << endl;
       node = node->right;
     }
   }
