@@ -6,7 +6,6 @@
 class Tree {
  public:
   Tree();
-  ~Tree();
   void insert(int value);
   void remove(int value);
   Node* search(int value);
