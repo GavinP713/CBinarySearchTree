@@ -7,10 +7,6 @@ Tree::Tree() {
   head = nullptr;
 }
 
-Tree::~Tree() {
-
-}
-
 void Tree::insert(int value) {
   // insert head
   if (head == nullptr) {
@@ -76,21 +72,36 @@ void Tree::remove(int value) {
     int nodeValue = node->value;
     remove(nodeValue); // does another search loop (ineffecient)
     targetNode->value = nodeValue;
+
+    // update parent
+    
   }
   // one left child
   else if (left != nullptr) {
     //    cout << " left child" << endl;
     // link child to parent
-    if (parent->left == targetNode) parent->left = left;
-    else parent->right = left;
+    if (parent->left == targetNode) {
+      parent->left = left;
+      left->parent = parent;
+    }
+    else {
+      parent->right = left;
+      left->parent = parent;
+    }
     delete targetNode;
   }
   // one right child
   else if (right != nullptr) {
     //cout << " right child" << endl;
     // link child to parent
-    if (parent->left == targetNode) parent->left = right;
-    else parent->right = right;
+    if (parent->left == targetNode) {
+      parent->left = right;
+      right->parent = parent;
+    }
+    else {
+      parent->right = right;
+      right->parent = parent;
+    }
     delete targetNode;
   }
   // no children
